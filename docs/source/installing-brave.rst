@@ -4,33 +4,38 @@ Installing Brave
 Linux
 *****
 
+NOTE: If Brave does not start and shows an error about sandboxing, you may need
+to enable `user namespaces
+<https://superuser.com/questions/1094597/enable-user-namespaces-in-debian-kernel#1122977>`_. For security reasons, we do NOT recommend running with the ``--no-sandbox`` flag. For more info, see https://github.com/brave/brave-browser/issues/1986#issuecomment-445057361.
+
+
 Release Channel Installation
 ============================
 
 .. highlight:: console
 
-Ubuntu 16.04+
--------------
+Ubuntu 16.04+ and Mint 18+
+--------------------------
 ::
 
     curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key add -
 
-    echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ `lsb_release -sc` main" | sudo tee /etc/apt/sources.list.d/brave-browser-release-`lsb_release -sc`.list
+    source /etc/os-release
+
+    echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ $UBUNTU_CODENAME main" | sudo tee /etc/apt/sources.list.d/brave-browser-release-${UBUNTU_CODENAME}.list
 
     sudo apt update
 
     sudo apt install brave-browser brave-keyring
 
 
-Mint 17+
---------
+Mint 17
+-------
 ::
 
     curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key add -
 
-    UBUNTU_CODENAME=$( (grep DISTRIB_CODENAME /etc/upstream-release/lsb-release || grep DISTRIB_CODENAME /etc/lsb-release) 2>/dev/null | cut -d'=' -f2 )
-
-    echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ $UBUNTU_CODENAME main" | sudo tee /etc/apt/sources.list.d/brave-browser-release-$UBUNTU_CODENAME.list
+    echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ trusty main" | sudo tee /etc/apt/sources.list.d/brave-browser-release-trusty.list
 
     sudo apt update
 
@@ -54,9 +59,9 @@ Centos/RHel
 
     sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
 
-    sudo cat << EOF >  /etc/yum.repos.d/Brave.repo
-    [brave]
-    name=Brave Browser repo
+    cat << EOF | sudo tee /etc/yum.repos.d/brave-browser-release.repo
+    [brave-browser-release]
+    name=Brave Browser Release Channel repository
     baseurl=https://brave-browser-rpm-release.s3.brave.com/x86_64/
     enabled=1
     EOF
@@ -70,28 +75,28 @@ Beta Channel Installation
 
 .. highlight:: console
 
-Ubuntu 16.04+
--------------
+Ubuntu 16.04+ and Mint 18+
+--------------------------
 ::
 
     curl -s https://brave-browser-apt-beta.s3.brave.com/brave-core-nightly.asc | sudo apt-key add -
 
-    echo "deb [arch=amd64] https://brave-browser-apt-beta.s3.brave.com/ `lsb_release -sc` main" | sudo tee /etc/apt/sources.list.d/brave-browser-beta-`lsb_release -sc`.list
+    source /etc/os-release
+
+    echo "deb [arch=amd64] https://brave-browser-apt-beta.s3.brave.com/ $UBUNTU_CODENAME main" | sudo tee /etc/apt/sources.list.d/brave-browser-beta-${UBUNTU_CODENAME}.list
 
     sudo apt update
 
     sudo apt install brave-browser-beta
 
 
-Mint 17+
---------
+Mint 17
+-------
 ::
 
     curl -s https://brave-browser-apt-beta.s3.brave.com/brave-core-nightly.asc | sudo apt-key add -
 
-    UBUNTU_CODENAME=$( (grep DISTRIB_CODENAME /etc/upstream-release/lsb-release || grep DISTRIB_CODENAME /etc/lsb-release) 2>/dev/null | cut -d'=' -f2 )
-
-    echo "deb [arch=amd64] https://brave-browser-apt-beta.s3.brave.com/ $UBUNTU_CODENAME main" | sudo tee /etc/apt/sources.list.d/brave-browser-beta-$UBUNTU_CODENAME.list
+    echo "deb [arch=amd64] https://brave-browser-apt-beta.s3.brave.com/ trusty main" | sudo tee /etc/apt/sources.list.d/brave-browser-beta-trusty.list
 
     sudo apt update
 
@@ -114,9 +119,9 @@ Centos/RHel
 
     sudo rpm --import https://brave-browser-rpm-beta.s3.brave.com/brave-core-nightly.asc
 
-    sudo cat << EOF >  /etc/yum.repos.d/Brave.repo
-    [brave]
-    name=Brave Browser repo
+    cat << EOF | sudo tee /etc/yum.repos.d/brave-browser-beta.repo
+    [brave-browser-beta]
+    name=Brave Browser Beta Channel repository
     baseurl=https://brave-browser-rpm-beta.s3.brave.com/x86_64/
     enabled=1
     EOF
@@ -130,28 +135,28 @@ Development Channel Installation
 
 .. highlight:: console
 
-Ubuntu 16.04+
--------------
+Ubuntu 16.04+ and Mint 18+
+--------------------------
 ::
 
     curl -s https://brave-browser-apt-dev.s3.brave.com/brave-core-nightly.asc | sudo apt-key add -
 
-    echo "deb [arch=amd64] https://brave-browser-apt-dev.s3.brave.com/ `lsb_release -sc` main" | sudo tee /etc/apt/sources.list.d/brave-browser-dev-`lsb_release -sc`.list
+    source /etc/os-release
+
+    echo "deb [arch=amd64] https://brave-browser-apt-dev.s3.brave.com/ $UBUNTU_CODENAME main" | sudo tee /etc/apt/sources.list.d/brave-browser-dev-${UBUNTU_CODENAME}.list
 
     sudo apt update
 
     sudo apt install brave-browser-dev
 
 
-Mint 17+
---------
+Mint 17
+-------
 ::
 
     curl -s https://brave-browser-apt-dev.s3.brave.com/brave-core-nightly.asc | sudo apt-key add -
 
-    UBUNTU_CODENAME=$( (grep DISTRIB_CODENAME /etc/upstream-release/lsb-release || grep DISTRIB_CODENAME /etc/lsb-release) 2>/dev/null | cut -d'=' -f2 )
-
-    echo "deb [arch=amd64] https://brave-browser-apt-dev.s3.brave.com/ $UBUNTU_CODENAME main" | sudo tee /etc/apt/sources.list.d/brave-browser-dev-$UBUNTU_CODENAME.list
+    echo "deb [arch=amd64] https://brave-browser-apt-dev.s3.brave.com/ trusty main" | sudo tee /etc/apt/sources.list.d/brave-browser-dev-trusty.list
 
     sudo apt update
 
@@ -175,9 +180,9 @@ Centos/RHel
 
     sudo rpm --import  https://brave-browser-rpm-dev.s3.brave.com/brave-core-nightly.asc
 
-    sudo cat << EOF >  /etc/yum.repos.d/Brave.repo
-    [brave]
-    name=Brave Browser repo
+    cat << EOF | sudo tee /etc/yum.repos.d/brave-browser-dev.repo
+    [brave-browser-dev]
+    name=Brave Browser Dev Channel repository
     baseurl=https://brave-browser-rpm-dev.s3.brave.com/x86_64/
     enabled=1
     EOF
