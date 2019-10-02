@@ -580,11 +580,7 @@ pipeline {
                     agent {
                         node {
                             label "windows-ci"
-                            if (BRANCH.length() > 4) {
-                                customWorkspace "C:\\" + BRANCH[-4..-1]
-                            } else {
-                                customWorkspace "C:\\" + BRANCH
-                            }
+                            customWorkspace "C:\\" + BRANCH
                         }
                     }
                     environment {
