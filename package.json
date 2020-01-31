@@ -44,7 +44,7 @@
       },
       "brave-core": {
         "dir": "src/brave",
-        "branch": "1.4.x",
+        "branch": "dev_sparkle_1.22.0",
         "repository": {
           "url": "https://github.com/brave/brave-core.git"
         }
