@@ -44,7 +44,7 @@
       },
       "brave-core": {
         "dir": "src/brave",
-        "branch": "master",
+        "branch": "mplesa-omaha-production",
         "repository": {
           "url": "https://github.com/brave/brave-core.git"
         }
