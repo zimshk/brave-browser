@@ -47,8 +47,7 @@
         "dir": "src/brave",
         "branch": "reppr",
         "repository": {
-          "type": "git",
-          "url": "git+https://github.com/brave/brave-core-private.git"
+          "url": "git@github.com:brave/brave-core-private.git"
         }
       }
     },
